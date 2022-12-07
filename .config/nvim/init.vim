@@ -6,6 +6,7 @@ source $HOME/.config/nvim/vim-plug/plugins.vim
 nmap <space> <leader>
 vmap <space> <leader>
 
+:highlight Normal guibg=none guifg=gray
 " nmap <silent> <S-Left> <c-w>W
 " nmap <silent> <S-Right> <c-w>w
 inoremap ; :
@@ -75,13 +76,17 @@ command! ReloadConfig lua ReloadConfig()
 " starts up in terminal-editing mode, so I exit out as soon as I use this cmd)
 tnoremap \m <C-\><C-n>
 " nnoremap <F5> :w<CR>:FloatermNew! python3 ./%<CR>
-tnoremap   <silent>   \t  <C-\><C-n>:FloatermToggle<CR><C-\><C-n>
-nnoremap   <silent>   \t   <C-\><C-n>:FloatermToggle<CR><C-\><C-n>
-autocmd FileType python map <buffer> <F5> :w<CR>:FloatermNew! python3 ./%<CR>
+autocmd Filetype python map <silent> <buffer> <F5> :update<CR>:FloatermNew! python3 ./%<CR>
+autocmd Filetype cpp map <silent> <buffer> <F5> :update<CR>:FloatermNew! gcc ./%<CR>
+autocmd Filetype lua map <silent> <buffer> <F5> :update<CR>:FloatermNew! lua ./%<CR>
+
+tnoremap <silent> \t <C-\><C-n>:FloatermToggle<CR><C-\><C-n>
+nnoremap <silent> \t <C-\><C-n>:FloatermToggle<CR><C-\><C-n>
+" autocmd FileType python nmap <F5> :w<CR>:FloatermNew! python3 ./%<CR>
 "<C-\><C-n>
 " autocmd FileType python map <buffer> <F5> :w<CR>:FloatermSend! python3 ./%<CR><C-\><C-n>
-autocmd FileType cpp map <buffer> <F5> :w<CR>:FloatermNew! gcc ./%<CR><C-\><C-n>
-autocmd FileType lua map <buffer> <F5> :w<CR>:FloatermNew! lua ./%<CR><C-\><C-n>
+" autocmd FileType cpp map <buffer> <F5> :w<CR>:FloatermNew! gcc ./%<CR><C-\><C-n>
+" autocmd FileType lua map <buffer> <F5> :w<CR>:FloatermNew! lua ./%<CR><C-\><C-n>
 " vim surround key mappings
 nmap <leader>" ysiw"
 nmap <leader>( ysiw(
@@ -163,6 +168,8 @@ set mouse=a
 set noswapfile
 set number
 set relativenumber
+
+noremap <F5> {V}:FloatermNew <CR>
 "autocmd FileType python map <buffer> <F5> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 "python autocmd FileType imap <buffer> <F5> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 "noremap <C-w>+ :resize +5<CR>
@@ -229,11 +236,11 @@ set lazyredraw
 
     
     " Vim-scripts emmet-vim for web-dev/fullstack
-    Plug 'mattn/emmet-vim'
+    " Plug 'mattn/emmet-vim'
     
     " vim surround - use cs as the prefix: this auto-c's any special
     " characters when appropriate
-    Plug 'tpope/vim-surround'
+    " Plug 'tpope/vim-surround'
 
     " Trigger configuration. You need to change this to something other than <tab> if you use one of the following:
     " - https://github.com/Valloric/YouCompleteMe
