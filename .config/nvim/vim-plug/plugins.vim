@@ -25,6 +25,8 @@ command! -bang -nargs=* Rg
 
     " more vim color themes
     "
+    " ycm
+    Plug 'ycm-core/YouCompleteMe'
     " css colors
     Plug 'KabbAmine/vCoolor.vim'
     Plug 'lilydjwg/colorizer'
@@ -45,7 +47,7 @@ command! -bang -nargs=* Rg
 
     Plug 'VonHeikemen/lsp-zero.nvim'
     " For ultisnips users.
-    Plug 'SirVer/ultisnips'
+    " Plug 'SirVer/ultisnips'
 
     " more vim color themes
 
@@ -56,7 +58,7 @@ command! -bang -nargs=* Rg
     " Plug 'williamboman/mason.nvim'
 
     " ACTUAL LSP plugin
-    Plug 'neovim/nvim-lspconfig'
+    " Plug 'neovim/nvim-lspconfig'
     " replacement of lsp configs
     " Plug 'williamboman/mason-lspconfig.nvim'
     " autcompletes the BUILT-IN vim autocompletion
@@ -143,7 +145,7 @@ let g:codi#interpreters = {
     Plug 'williamboman/mason-lspconfig.nvim'
 
     " Autocompletion
-    Plug 'hrsh7th/nvim-cmp'
+    Plug 'hrsh7th/nvim-cmp' "buggy...? lsp errors
     Plug 'hrsh7th/cmp-buffer'
     Plug 'hrsh7th/cmp-path'
     Plug 'saadparwaiz1/cmp_luasnip'
@@ -185,5 +187,3 @@ end)
 lsp.setup()
 EOF
 "reference for keybindings of lsp-zero https://github.com/VonHeikemen/lsp-zero.nvim/wiki/Under-the-hood
-
-
