@@ -9,8 +9,13 @@ vnoremap <S-R> c
 
 " bg always transparent or termcolor
 colorscheme molokai
+" colorscheme dogrun
 hi Nontext ctermfg=NONE guibg=NONE | hi Normal guibg=NONE ctermbg=NONE
 
+" this wraps print("text") within the selected text in vmode
+vmap <leader>v sprint("<c-r>"")<esc>
+" vnoremap v ,jsprint(<c-r>"<esc>>
+nmap <c-q> ,js[[print(<c-r>"<esc>>]]
 
 " remapped parenthesis with ()
 " imap ( 9
@@ -301,5 +306,3 @@ nnoremap <silent> b ":/^\w\+\m\\|\W\w<CR>NNl:nohlsearch<CR>
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
 let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4 --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
 nmap <silent> <C-P> :Files<CR>
-
-
