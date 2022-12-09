@@ -25,6 +25,7 @@ command! -bang -nargs=* Rg
 
     " more vim color themes
     "
+    Plug 'tomasr/molokai'
     " ycm
     Plug 'ycm-core/YouCompleteMe'
     " css colors
