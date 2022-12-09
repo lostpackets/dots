@@ -5,7 +5,20 @@ source $HOME/.config/nvim/vim-plug/plugins.vim
 " doesn't interfere with my terminal mode
 nmap <space> <leader>
 vmap <space> <leader>
+vnoremap <S-R> c
 
+" bg always transparent or termcolor
+colorscheme molokai
+hi Nontext ctermfg=NONE guibg=NONE | hi Normal guibg=NONE ctermbg=NONE
+
+
+" remapped parenthesis with ()
+" imap ( 9
+" imap <s-9> 9
+" innoremap <s-CR> o<Esc>
+nmap <C-f> *:%s///gc<Left><Left><Left>
+vmap <C-f> *:%s///gc<Left><Left><Left>
+nnoremap D Da
 :highlight Normal guibg=none guifg=gray
 " nmap <silent> <S-Left> <c-w>W
 " nmap <silent> <S-Right> <c-w>w
@@ -14,7 +27,7 @@ inoremap : ;
 
 " these cmds open up a reference sheet for looking over custom funcs
 " autocmd! VimEnter *.py :vs python_ref.py |:winc l| :Codi
-autocmd! VimEnter *.py :Codi|:call timer_start( 700, { id -> execute( ':vs python_ref.py|:winc l' ) }, { 'repeat': 1 } )|
+" autocmd! VimEnter *.py :Codi|:call timer_start( 700, { id -> execute( ':vs python_ref.py|:winc l' ) }, { 'repeat': 1 } )|
 autocmd! VimEnter *.cpp :Codi|:call timer_start( 700, { id -> execute( ':vs ref_cpp.cpp|:winc l' ) }, { 'repeat': 1 } )|
 " autocmd! VimEnter *.cpp :Codi
 
@@ -88,25 +101,43 @@ nnoremap <silent> \t <C-\><C-n>:FloatermToggle<CR><C-\><C-n>
 " autocmd FileType cpp map <buffer> <F5> :w<CR>:FloatermNew! gcc ./%<CR><C-\><C-n>
 " autocmd FileType lua map <buffer> <F5> :w<CR>:FloatermNew! lua ./%<CR><C-\><C-n>
 " vim surround key mappings
-nmap <leader>" ysiw"
-nmap <leader>( ysiw(
-nmap <leader>[ ysiw[
-nmap <leader>' ysiw'
-nmap <leader>< ysiw<
-nmap <leader>+ ysiw+
-nmap <leader>- ysiw-
-nmap <leader>/ ysiw/
-nmap <leader>\ ysiw\
-nmap <leader>* ysiw*
+nmap <silent> <leader>" ysiw"
+nmap <silent> <leader>( ysiw(
+nmap <silent> <leader>[ ysiw[
+nmap <silent> <leader>> ysiw>
+nmap <silent> <leader>{ ysiw{
+nmap <silent> <leader>' ysiw'
+nmap <silent> <leader>< ysiw<
+nmap <silent> <leader>+ ysiw+
+nmap <silent> <leader>- ysiw-
+nmap <silent> <leader>/ ysiw/
+nmap <silent> <leader>\ ysiw\
+nmap <silent> <leader>* ysiw*
 
+nmap <silent> <leader>d" ds"
+nmap <silent> <leader>d( ds(
+nmap <silent> <leader>d[ ds[
+nmap <silent> <leader>d> ds>
+nmap <silent> <leader>d{ ds{
+nmap <silent> <leader>d' ds'
+nmap <silent> <leader>d< ds<
+nmap <silent> <leader>d+ ds+
+nmap <silent> <leader>d- ds-
+nmap <silent> <leader>d/ ds/
+nmap <silent> <leader>d\ ds\
+nmap <silent> <leader>d* ds*
 " surround (visual mode)
 vnoremap <silent> <leader>( <Plug>VSurround(<CR>
+vnoremap <silent> <leader>[ <Plug>VSurround[<CR>
+vnoremap <silent> <leader>{ <Plug>VSurround{<CR>
+vnoremap <silent> <leader>> <Plug>VSurround><CR>
 vnoremap <silent> <leader>" <Plug>VSurround"<CR>
 vnoremap <silent> <leader>' <Plug>VSurround'<CR>
 vnoremap <silent> <leader>* <Plug>VSurround*<CR>
 vnoremap <silent> <leader>< <Plug>VSurround<
 vnoremap <silent> <leader>/ <Plug>VSurround/<CR>
 vnoremap <silent> <leader>\ <Plug>VSurround\<CR>
+
 
 nnoremap ; :
 vnoremap ; :
@@ -134,14 +165,15 @@ set expandtab
 " let g:lightline = {
 "       \ 'colorscheme': 'nord',
 "       \ }
-nnoremap <C-g> :Telescope<CR>
+nnoremap <C-t> :Telescope<CR>
 nnoremap <A-f> :Snippets<CR>
 let g:lightline = {
       \ 'colorscheme': 'dogrun',
       \ }
 
-
-nnoremap <C-f> <Plug>(easymotion-overwin-w)
+" set list
+" set listchars=eol:⏎,tab:>-,trail:.,extends:>,precedes:<
+nnoremap <C-w> <Plug>(easymotion-overwin-w)
 
 set wrap
 nnoremap ^ 0
