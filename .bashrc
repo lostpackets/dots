@@ -1,6 +1,6 @@
 # Enable the subsequent settings only in interactive sessions
-tmux source ~/.tmux.conf
-[[ $TERM != "screen" ]] && exec tmux
+# tmux source ~/.tmux.conf
+# [[ $TERM != "screen" ]] && exec tmux
 case $- in
   *i*) ;;
     *) return;;
@@ -24,11 +24,11 @@ alias python=python3
 #if setxkbmap doesn't work; disable wayland /etc/gdm3/custom.conf
 $echo $('''setxkbmap' -option caps:swapescape'''')
 $echo $('''xset' r rate 360 57'''')
-alias desmos=/home/amadeus/Desmos-Desktop/dist/linux-unpacked/desmos
+alias desmos=~/Desmos-Desktop/dist/linux-unpacked/desmos
 set -o vi
 
 # Path to your oh-my-bash installation.
-export OSH='/home/amadeus/.oh-my-bash'
+export OSH='/home/leavenowhitespaces/.oh-my-bash'
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # OSH_THEME="powerline-multiline"
@@ -112,7 +112,7 @@ aliases=(
   general
 )
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-bash/plugins/*)
+# Which plugins would youlike to load? (plugins can be found in ~/.oh-my-bash/plugins/*)
 # Custom plugins may be added to ~/.oh-my-bash/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
@@ -156,4 +156,4 @@ source "$OSH"/oh-my-bash.sh
 #
 # Example aliases
 # alias bashconfig="mate ~/.bashrc"
-# alias ohmybash="mate ~/.oh-my-bash"
+# alias ohmybash="mate ~/.oh-my-bash" 
