@@ -1,30 +1,96 @@
 source $HOME/.config/nvim/vim-plug/plugins.vim
 " source $HOME/.config/nvim/lua/lsp.lua
+" nmap <F11> ":let b = ['foo', 'bar', 'vim'] | %s//\=(remove(b, 0))/g
+
+" source for below: https://www.itcodar.com/linux/how-to-replace-finding-words-with-the-different-in-each-occurrence-in-vi-vim-editor.html
+" This replaces all occurances with different elements as specified in the array of b
+" may come back and make this a more dynamic script that allows the user to
+" specify how many unique elements you want, along with specifying those
+" elements and maybe which word it comes from. This is all to make the process
+" easier
+nmap <F11> *:let b = ['foo', 'bar', 'vim'] \| %s/10/\=(remove(b, 0))/g \| echo "b's array replaces anything with the occurances of 10"
+
+
+"
+"
+"
 " let mapleader = ' '
 " list out any other mode here to whitelist: this is so that the leader key
 " doesn't interfere with my terminal mode
+" Something here wasn't letting me use TS cmds... -unsure of the cmds here.
+" let g:UltiSnipsExpandTrigger="<c-q>"
+" let g:UltiSnipsJumpForwardTrigger="<c-b>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" " If you want :UltiSnipsEdit to split your window.
+" let g:UltiSnipsEditSplit="vertical"
+    
+" Replace within visual mode (search and replace)
+" this is within the global flag because it's within the visual mode selection
+" already.
+vmap <F8> :s/\%Vs/k/g<Left><Left><Left><Left>
+autocmd FileType javascript,css,cpp,python nmap <silent> <F> <Plug>(cosco-commaOrSemiColon)
+autocmd FileType javascript,css,cpp,python imap <silent> <F> <c-o><Plug>(cosco-commaOrSemiColon)
+" " ActivateAddons vim-snippets snipmate
+" " press <Tab> to expand or jump in a snippet. These can also be mapped separately
+" " via <Plug>luasnip-expand-snippet and <Plug>luasnip-jump-next.
+" imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>' 
+" " -1 for jumping backwards.
+" inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
+
+" snoremap <silent> <Tab> <cmd>lua require('luasnip').jump(1)<Cr>
+" snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
+
+" " For changing choices in choiceNodes (not strictly necessary for a basic setup).
+" imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
+" smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
+" " let g:UltiSnipsExpandTrigger = '<tab>'
+" " let g:UltiSnipsJumpForwardTrigger = '<tab>'
+" " let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+" let g:UltiSnipsSnippetDirectories=["latex_snippets"]
+
 nmap <space> <leader>
+" packloadall
 vmap <space> <leader>
 vnoremap <S-R> c
+" :TSToggle highlight
+" autocmd! VimEnter *.py :TSToggle highlight
+" autocmd! VimEnter *.vim :TSToggle highlight
+" autocmd! VimEnter *.cpp :TSToggle highlight
+" autocmd! VimEnter *.lua :TSToggle highlight
+let g:ycm_use_ultisnips_completer = 1
+" let g:UltiSnipsExpandTrigger='<c-j>'
 
+" nmap <leader>g gcc
+" this automatically selects the word the cursor is on top of
+" I bound it to space (originally leader, but it was too slow) + motion keys because my hands are already on top of
+" the motion keys anyway.
+" +useful for trying to change the same word in multiple lines with c
+nmap <space>b <c-v>iw
+nmap <space>w <c-v>iw
+nmap <space>j <c-v>iw
+nmap <space>k <c-v>iw
+nmap <space>l <c-v>iw
+nmap <space>h <c-v>iw
 " bg always transparent or termcolor
 colorscheme molokai
 " colorscheme dogrun
-hi Nontext ctermfg=NONE guibg=NONE | hi Normal guibg=NONE ctermbg=NONE
-
+hi Nontext ctermfg=NONE guibg=NONE | hi Normal guibg=NONE ctermbg=NONE | hi Visual guibg=Yellow ctermbg=Blue | hi Comment ctermfg=darkmagenta
+" this maps E and sends user into imode at the end of the word
+nmap E viwA
 " this wraps print("text") within the selected text in vmode
 vmap <leader>v sprint("<c-r>"")<esc>
 " vnoremap v ,jsprint(<c-r>"<esc>>
 nmap <c-q> ,js[[print(<c-r>"<esc>>]]
 
 " remapped parenthesis with ()
-" imap ( 9
 " imap <s-9> 9
+" imap <s-9> red
 " innoremap <s-CR> o<Esc>
 nmap <C-f> *:%s///gc<Left><Left><Left>
-vmap <C-f> *:%s///gc<Left><Left><Left>
 nnoremap D Da
 :highlight Normal guibg=none guifg=gray
+vmap <C-f> *:%s///gc<Left><Left><Left>
 " nmap <silent> <S-Left> <c-w>W
 " nmap <silent> <S-Right> <c-w>w
 inoremap ; :
@@ -106,44 +172,91 @@ nnoremap <silent> \t <C-\><C-n>:FloatermToggle<CR><C-\><C-n>
 " autocmd FileType cpp map <buffer> <F5> :w<CR>:FloatermNew! gcc ./%<CR><C-\><C-n>
 " autocmd FileType lua map <buffer> <F5> :w<CR>:FloatermNew! lua ./%<CR><C-\><C-n>
 " vim surround key mappings
-nmap <silent> <leader>" ysiw"
-nmap <silent> <leader>( ysiw(
-nmap <silent> <leader>[ ysiw[
-nmap <silent> <leader>> ysiw>
-nmap <silent> <leader>{ ysiw{
-nmap <silent> <leader>' ysiw'
-nmap <silent> <leader>< ysiw<
-nmap <silent> <leader>+ ysiw+
-nmap <silent> <leader>- ysiw-
-nmap <silent> <leader>/ ysiw/
-nmap <silent> <leader>\ ysiw\
-nmap <silent> <leader>* ysiw*
+nmap <silent> <space>" ysiw"l
+nmap <silent> <space>@ ysiw@l
+nmap <silent> <space>( ysiw)l
+nmap <silent> <space>) ysiw(l
+nmap <silent> <space>[ ysiw[l
+nmap <silent> <space>> ysiw>l
+nmap <silent> <space>{ ysiw}l
+nmap <silent> <space>' ysiw'l
+nmap <silent> <space>< ysiw<
+nmap <silent> <space>+ ysiw+l
+nmap <silent> <space>- ysiw-l
+nmap <silent> <space>/ ysiw/l
+nmap <silent> <space>\ ysiw\l
+nmap <silent> <space>* ysiw*l
+nmap <silent> <space>! ysiw!l
 
-nmap <silent> <leader>d" ds"
-nmap <silent> <leader>d( ds(
-nmap <silent> <leader>d[ ds[
-nmap <silent> <leader>d> ds>
-nmap <silent> <leader>d{ ds{
-nmap <silent> <leader>d' ds'
-nmap <silent> <leader>d< ds<
-nmap <silent> <leader>d+ ds+
-nmap <silent> <leader>d- ds-
-nmap <silent> <leader>d/ ds/
-nmap <silent> <leader>d\ ds\
-nmap <silent> <leader>d* ds*
+" triple surround with vim-surround (nmap)
+nmap <silent> <space>3" ysiw"lysa""llysa""ll
+nmap <silent> <space>3' ysiw'lysa''llysa''ll
+nmap <silent> <space>3* ysiw*lysiw*llysiw*l
+nmap <silent> <space>3! ysiw!lysiw!llysiw!l
+nmap <silent> <space>3> ysiw>lysa>>llysa>>ll
+nmap <silent> <space>3[ ysiw[lysa[[llysa[[ll
+nmap <silent> <space>3{ ysiw{lysa{{llysa{{ll
+nmap <silent> <space>3( ysiw)lysa))llysa))ll
+" triple surround with vim-surround (vmap)
+" vmap <silent> <space>3" <Plug>VSurround"<Plug>VSurround"<Plug>VSurround"<CR>
+" vmap <silent> <space>3' <Plug>VSurround'<CR><Plug>VSurround'<CR><Plug>VSurround'<CR>
+" vmap <silent> <space>3* <Plug>VSurround*<CR><Plug>VSurround*<CR><Plug>VSurround*<CR>
+" vmap <silent> <space>3! 
+" vmap <silent> <space>3> 
+" vmap <silent> <space>3[ 
+" vmap <silent> <space>3{ 
+" vmap <silent> <space>3( 
+" triple "delete" surround with vim-surround
+nmap <silent> <space>d3" ds"ds"ds"
+nmap <silent> <space>d3' ds'ds'ds'
+nmap <silent> <space>d3* ds*ds*ds*
+nmap <silent> <space>d3! ds!ds!ds!
+nmap <silent> <space>d3> ds>ds>ds>
+nmap <silent> <space>d3[ ds[ds[ds[
+nmap <silent> <space>d3{ ds{ds{ds{
+nmap <silent> <space>d3( ds)ds)ds)
+" vim surround delete
+nmap <silent> <space>d) ds(
+nmap <silent> <space>d" ds"
+nmap <silent> <space>d( ds)
+nmap <silent> <space>d[ ds[
+nmap <silent> <space>d> ds>
+nmap <silent> <space>d{ ds}
+nmap <silent> <space>d' ds'
+nmap <silent> <space>d< ds<
+nmap <silent> <space>d+ ds+
+nmap <silent> <space>d- ds-
+nmap <silent> <space>d/ ds/
+nmap <silent> <space>d\ ds\
+nmap <silent> <space>d* ds*
+nmap <silent> <space>d! ds!
 " surround (visual mode)
-vnoremap <silent> <leader>( <Plug>VSurround(<CR>
-vnoremap <silent> <leader>[ <Plug>VSurround[<CR>
-vnoremap <silent> <leader>{ <Plug>VSurround{<CR>
-vnoremap <silent> <leader>> <Plug>VSurround><CR>
-vnoremap <silent> <leader>" <Plug>VSurround"<CR>
-vnoremap <silent> <leader>' <Plug>VSurround'<CR>
-vnoremap <silent> <leader>* <Plug>VSurround*<CR>
-vnoremap <silent> <leader>< <Plug>VSurround<
-vnoremap <silent> <leader>/ <Plug>VSurround/<CR>
-vnoremap <silent> <leader>\ <Plug>VSurround\<CR>
+vnoremap <silent> <space>( <Plug>VSurround)<CR>
+vnoremap <silent> <space>[ <Plug>VSurround[<CR>
+vnoremap <silent> <space>{ <Plug>VSurround}<CR>
+vnoremap <silent> <space>> <Plug>VSurround><CR>
+vnoremap <silent> <space>" <Plug>VSurround"<CR>
+vnoremap <silent> <space>' <Plug>VSurround'<CR>
+vnoremap <silent> <space>* <Plug>VSurround*<CR>
+vnoremap <silent> <space>< <Plug>VSurround<
+vnoremap <silent> <space>/ <Plug>VSurround/<CR>
+vnoremap <silent> <space>\ <Plug>VSurround\<CR>
+vnoremap <silent> <space>! <Plug>VSurround!<CR>
 
+" vim delete surrounds within visual mode?
+" vnoremap <silent> <space>t( ds(
+" vnoremap <silent> <space>t[ <Plug>VSurround[<CR>
+" vnoremap <silent> <space>t{ <Plug>VSurround}<CR>
+" vnoremap <silent> <space>t> <Plug>VSurround><CR>
+" vnoremap <silent> <space>t" <Plug>VSurround"<CR>
+" vnoremap <silent> <space>t' <Plug>VSurround'<CR>
+" vnoremap <silent> <space>t* <Plug>VSurround*<CR>
+" vnoremap <silent> <space>t< <Plug>VSurround<
+" vnoremap <silent> <space>t/ <Plug>VSurround/<CR>
+" vnoremap <silent> <space>t\ <Plug>VSurround\<CR>
+" vnoremap <silent> <space>t! <Plug>VSurround!<CR>
 
+" vim replace semi colon with colon and vice versa
 nnoremap ; :
 vnoremap ; :
 " for moving lines and or yanking extras
