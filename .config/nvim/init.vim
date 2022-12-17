@@ -2,17 +2,63 @@ source $HOME/.config/nvim/vim-plug/plugins.vim
 " source $HOME/.config/nvim/lua/lsp.lua
 " nmap <F11> ":let b = ['foo', 'bar', 'vim'] | %s//\=(remove(b, 0))/g
 
+" set <F13>=^[[13;2u
 " source for below: https://www.itcodar.com/linux/how-to-replace-finding-words-with-the-different-in-each-occurrence-in-vi-vim-editor.html
 " This replaces all occurances with different elements as specified in the array of b
 " may come back and make this a more dynamic script that allows the user to
 " specify how many unique elements you want, along with specifying those
 " elements and maybe which word it comes from. This is all to make the process
 " easier
-nmap <F11> *:let b = ['foo', 'bar', 'vim'] \| %s/10/\=(remove(b, 0))/g \| echo "b's array replaces anything with the occurances of 10"
+nmap <F11> *:let b = ['foo', 'bar', 'vim'] \| %s/@/\=(remove(b, 0))/g \|<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
+let g:vim_notes_date_format = "%m-%d-%Y-%A"
+ " echo "b's array replaces anything with the occurances of @"
+ "
+" map V vg_
+nmap <BS> d])
+map vv V
+vmap <Left> e
+vmap <Right> b
+vmap vv <Plug>(Exchange)
+map X v<esc>$xgv<esc>
+ " imap <F13> :echo 'hi'
+ " this only works for rxvt
+ " nmap <S-CR> :echo 'hi'
+imap <S-CR> <esc><Plug>(cosco-commaOrSemiColon)A
+" imap <S-CR> <esc><Plug>(cosco-commaOrSemiColon)ji
+nmap <CR> <Plug>(cosco-commaOrSemiColon)j
+ " imap <S-CR> 
+ " nmap \x1b[13;2u :echo 'hi'
+" let g:Endlines = {
+"   &#039erlang': '.',
+"   &#039java': ';',
+"   &#039javascript': ';',
+"   &#039ocaml': ';;',
+"   &#039perl': ';',
+"   &#039php': ';',
+"   &#039python': ':',
+"   &#039sml': ';'
+" \}
+ "
+ " perl-regex (the most common regex)
+" nnoremap <leader>/ :call eregex#toggle()<CR>
 
+" V trigger for perl regex replacement
+" :%S//
 
-"
-"
+" bringing back regular text editor functionality cursor config into always in insert mode
+" nnoremap <LeftMouse> <LeftMouse>i
+" nnoremap <S-LeftMouse> V<LeftMouse>
+
+nmap <S-CR> <Plug>(cosco-commaOrSemiColon)
+" this could have been shift-enter... but I'd need rxvt to map shift/enter as individual keys
+" nmap <CR> <Plug>(cosco-commaOrSemiColon)j
+" for looking @registers
+nmap q; q:
+
+" instantly quit without saving; like :q!
+" nmap ;q ZQ
+
+nmap ? <a-p>wbi'<esc>ea',<esc>w<a-p>
 "
 " let mapleader = ' '
 " list out any other mode here to whitelist: this is so that the leader key
@@ -66,18 +112,42 @@ let g:ycm_use_ultisnips_completer = 1
 " I bound it to space (originally leader, but it was too slow) + motion keys because my hands are already on top of
 " the motion keys anyway.
 " +useful for trying to change the same word in multiple lines with c
+nmap <space><space> <c-v>iw
 nmap <space>b <c-v>iw
 nmap <space>w <c-v>iw
 nmap <space>j <c-v>iw
 nmap <space>k <c-v>iw
 nmap <space>l <c-v>iw
 nmap <space>h <c-v>iw
+" nmap <c-v> <c-v>iw
+
+" nmap j j<Esc>
+" nmap k k<Esc>
+
+" visual line mode for motion keys
+nmap <space><space>b V
+nmap <space><space>w V
+nmap <space><space>j V
+nmap <space><space>k V
+nmap <space><space>l V
+nmap <space><space>h V
+" visual line mode using alt instead of space space
+" nmap <a><a>b V
+" nmap <a><a>w V
+" nmap <a><a>j V
+" nmap <a><a>k V
+" nmap <a><a>l V
+" nmap <a><a>h V
 " bg always transparent or termcolor
 colorscheme molokai
 " colorscheme dogrun
 hi Nontext ctermfg=NONE guibg=NONE | hi Normal guibg=NONE ctermbg=NONE | hi Visual guibg=Yellow ctermbg=Blue | hi Comment ctermfg=darkmagenta
 " this maps E and sends user into imode at the end of the word
-nmap E viwA
+ nmap E viwA
+" this deletes any char at the selection until the end of the word and goes into insert mode
+nmap F vec
+" warning: the vmap mode does the same; except, it cannot differentiate special characters when selecting edi before it
+vmap F ec
 " this wraps print("text") within the selected text in vmode
 vmap <leader>v sprint("<c-r>"")<esc>
 " vnoremap v ,jsprint(<c-r>"<esc>>
@@ -93,8 +163,9 @@ nnoremap D Da
 vmap <C-f> *:%s///gc<Left><Left><Left>
 " nmap <silent> <S-Left> <c-w>W
 " nmap <silent> <S-Right> <c-w>w
-inoremap ; :
-inoremap : ;
+" replace colon and semicolon
+" inoremap ; :
+" inoremap : ;
 
 " these cmds open up a reference sheet for looking over custom funcs
 " autocmd! VimEnter *.py :vs python_ref.py |:winc l| :Codi
@@ -180,7 +251,8 @@ nmap <silent> <space>[ ysiw[l
 nmap <silent> <space>> ysiw>l
 nmap <silent> <space>{ ysiw}l
 nmap <silent> <space>' ysiw'l
-nmap <silent> <space>< ysiw<
+nmap <silent> <space>> ysiw<
+nmap <silent> <space>< ysiw>
 nmap <silent> <space>+ ysiw+l
 nmap <silent> <space>- ysiw-l
 nmap <silent> <space>/ ysiw/l
@@ -243,6 +315,19 @@ vnoremap <silent> <space>/ <Plug>VSurround/<CR>
 vnoremap <silent> <space>\ <Plug>VSurround\<CR>
 vnoremap <silent> <space>! <Plug>VSurround!<CR>
 
+" triple surround in visual mode
+" gv reselects the last visual selection
+vnoremap <silent> <space>3( <Plug>VSurround)<CR>gv<Plug>VSurround)<CR>gv<Plug>VSurround)
+vnoremap <silent> <space>3[ <Plug>VSurround[<CR>gv<Plug>VSurround[<CR>gv<Plug>VSurround[
+vnoremap <silent> <space>3{ <Plug>VSurround}<CR>gv<Plug>VSurround}<CR>gv<Plug>VSurround}
+vnoremap <silent> <space>3> <Plug>VSurround><CR>gv<Plug>VSurround><CR>gv<Plug>VSurround>
+vnoremap <silent> <space>3" <Plug>VSurround"<CR>gv<Plug>VSurround"<CR>gv<Plug>VSurround"
+vnoremap <silent> <space>3' <Plug>VSurround'<CR>gv<Plug>VSurround'<CR>gv<Plug>VSurround'
+vnoremap <silent> <space>3* <Plug>VSurround*<CR>gv<Plug>VSurround*<CR>gv<Plug>VSurround*
+" vnoremap <silent> <spac3e>< <Plug>VSurround<    gv<Plug>VSurround<    gv<Plug>VSurround<
+vnoremap <silent> <space>3/ <Plug>VSurround/<CR>gv<Plug>VSurround/<CR>gv<Plug>VSurround/
+vnoremap <silent> <space>3\ <Plug>VSurround\<CR>gv<Plug>VSurround\<CR>gv<Plug>VSurround\
+vnoremap <silent> <space>3! <Plug>VSurround!<CR>gv<Plug>VSurround!<CR>gv<Plug>VSurround!
 " vim delete surrounds within visual mode?
 " vnoremap <silent> <space>t( ds(
 " vnoremap <silent> <space>t[ <Plug>VSurround[<CR>
@@ -294,8 +379,10 @@ let g:lightline = {
 nnoremap <C-w> <Plug>(easymotion-overwin-w)
 
 set wrap
+" remapped zero/0 to be at the beginning of the line without whitespace
 nnoremap ^ 0
 nnoremap 0 ^
+" nnoremap 0 b
 " inoremap <s-n> <C-n>  
 " inoremap <tab> <C-n>
 "inoremap <s-tab> <Up>
@@ -312,6 +399,8 @@ nnoremap <A-\> :source ./%<CR>
 "nmap <C-S> :Codi!<bar><Esc><Plug>(Exchange)$ this breaks other keymaps
 nmap cxw <Plug>(Exchange)
 nmap cxl <Plug>(ExchangeLine)
+" works best with visual line mode: V; this replaces all selected lines with the other selected text all in vline mode
+vmap <space><space> <Plug>(Exchange)
 " nnoremap cxiw cxiw":Codi!<CR>
 nnoremap <C-/> :Commentary<CR>
 set mouse=a
@@ -403,19 +492,25 @@ set lazyredraw
     let g:UltiSnipsEditSplit="vertical"
 
 " better swap replace quick?    
-nnoremap <silent> W ma"_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR>`a":/^\w\+\m\\|\W\w<CR>w:nohlsearch<CR>
+"
 "this moves the cursor as it moves te word ORIGINAL swap repl. vanilla
 " nnoremap <silent> W ma"_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR>`a":/\W\w<CR>w:nohlsearch<CR>
 "THIS USES A NEW REGEX \\ might be better idk?
 " nnoremap <silent> W ma"_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR>`a":/\a\\|\w<CR>w:nohlsearch<CR>
 " nnoremap <silent> W ma"_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR>`a":/\W\w\\|^\w\+\m<CR>w:nohlsearch<CR>
+" regex motion keybinds
 nnoremap <silent> w ":/^\w\+\m\\|\W\w<CR>l:nohlsearch<CR>
 nnoremap <silent> b ":/^\w\+\m\\|\W\w<CR>NNl:nohlsearch<CR>
+
+
+nnoremap <silent> W ma"_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR>`a":/^\w\+\m\\|\W\w<CR>w:nohlsearch<CR>
+
+"
+"
 "nnoremap <silent> b ":/\W\w<CR>Nl:nohlsearch<CR>
-"
-"
-"
 "
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
 let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4 --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
 nmap <silent> <C-P> :Files<CR>
+
+
