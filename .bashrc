@@ -6,24 +6,42 @@ case $- in
     *) return;;
 esac
 alias fzf='''fzf --preview "batcat --style=numbers --color=always --line-range :500 {}"'''
+# bind -x '"\C-f": fzf'
+# $echo $('''neofetch''')
+# xmodmap -e keycode\ 47\ =\ colon\ semicolon
+# $echo $('''xmodmap' -e keycode\ 47\ =\ colon\ semicolon'''')
 
+# $echo $('''xmodmap'\ -e\\" keycode\ 47\ =\ colon\ semicolon"'''')
+alias title_gen="python3 ~/title_gen.py"
+alias back4="back4.sh ~/Downloads/P6E2uJi.gif & 17"
+alias neofetch='neofetch --loop --w3m --source /home/leavenowhitespaces/neofetch_icon/tp_seraphim.png'
+$echo $('''setxkbmap' -option caps:swapescape'''')
+# remap scripts go here
+$echo $('''bash' .xinitrc'''')
+$echo $('''xset' r rate 360 57'''')
 alias fz='(fdfind -H|fzf)'
-
+# alias rxvtc='rxvt-unicode -fn "xft:DejaVu Sans Mono"'
+# foo-gif for wallpaper
+# $echo $('''back4.sh ~/Downloads/P6E2uJi.gif & 17''')
 # timestamp
 # PROMPT='${ret_status}%{$fg_bold[green]%}%p %{$fg[cyan]%}%c %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%} %D %T % %{$reset_color%}'
 
 
-
+# this was intended for keymapping C-f to modded:fuzzyfinder
+# $echo $('''bind' '\ x \'\"\\C-f\":\"f\"\'''')
+# $echo $('''bind'\ x \'\"\\C-f\":\"f\"\''''')
+# $echo $("""bind -x '\"\C-f\":\"f\"'""")
+# $echo $('''bind -x'\ \'\"\\C-f\":\"f\"\''')
 alias libre='/usr/bin/librewolf'
 alias gv='/usr/bin/gvim'
 alias nv='/usr/bin/nvim'
 alias fr='~/mixed-fraction-calculator/bin/run'
-alias f='open "$(fdfind -H |fzf)"'
+# alias f='open "$(fdfind -H |fzf)"'
+# nvim being used on all files automatically (temporary)
+alias f='nvim "$(fdfind -H |fzf)"'
 # alias f='nvim "$(fdfind -H |rg .|fzf)"'
 alias python=python3
 #if setxkbmap doesn't work; disable wayland /etc/gdm3/custom.conf
-$echo $('''setxkbmap' -option caps:swapescape'''')
-$echo $('''xset' r rate 360 57'''')
 alias desmos=~/Desmos-Desktop/dist/linux-unpacked/desmos
 set -o vi
 
