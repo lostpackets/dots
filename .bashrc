@@ -5,19 +5,21 @@ case $- in
   *i*) ;;
     *) return;;
 esac
+bind '"\C-F":"f\n"'
 alias fzf='''fzf --preview "batcat --style=numbers --color=always --line-range :500 {}"'''
 # bind -x '"\C-f": fzf'
 # $echo $('''neofetch''')
 # xmodmap -e keycode\ 47\ =\ colon\ semicolon
 # $echo $('''xmodmap' -e keycode\ 47\ =\ colon\ semicolon'''')
 
+alias torbrowser='~/tor-browser/start-tor-browser.desktop --run'
 # $echo $('''xmodmap'\ -e\\" keycode\ 47\ =\ colon\ semicolon"'''')
 alias title_gen="python3 ~/title_gen.py"
 alias back4="back4.sh ~/Downloads/P6E2uJi.gif & 17"
 alias neofetch='neofetch --loop --w3m --source /home/leavenowhitespaces/neofetch_icon/tp_seraphim.png'
 $echo $('''setxkbmap' -option caps:swapescape'''')
 # remap scripts go here
-$echo $('''bash' .xinitrc'''')
+$echo $('''bash' ~/.xinitrc'''')
 $echo $('''xset' r rate 360 57'''')
 alias fz='(fdfind -H|fzf)'
 # alias rxvtc='rxvt-unicode -fn "xft:DejaVu Sans Mono"'
