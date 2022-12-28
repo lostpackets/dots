@@ -15,9 +15,12 @@ let g:vim_notes_date_format = "%m-%d-%Y-%A"
  "
 " map V vg_
 nmap <BS> d])
+" map H F(i
+map H F(i
+map <F13> :Test<CR>
 map vv V
-vmap <Left> e
-vmap <Right> b
+" vmap <Left> e
+" vmap <Right> b
 vmap vv <Plug>(Exchange)
 map X v<esc>$xgv<esc>
  " imap <F13> :echo 'hi'
@@ -139,15 +142,16 @@ nmap <space><space>h V
 " nmap <a><a>l V
 " nmap <a><a>h V
 " bg always transparent or termcolor
+" colorscheme dogrun
 colorscheme molokai
 " colorscheme dogrun
-hi Nontext ctermfg=NONE guibg=NONE | hi Normal guibg=NONE ctermbg=NONE | hi Visual guibg=Yellow ctermbg=Blue | hi Comment ctermfg=darkmagenta
+hi Nontext ctermfg=NONE guibg=NONE | hi Normal guibg=NONE ctermbg=NONE | hi Visual guibg=Yellow ctermbg=Blue | hi Comment ctermfg=darkmagenta|hi LineNr ctermfg=grey|hi LineNr guibg=NONE
 " this maps E and sends user into imode at the end of the word
  nmap E viwA
 " this deletes any char at the selection until the end of the word and goes into insert mode
-nmap F vec
+" nmap F vec
 " warning: the vmap mode does the same; except, it cannot differentiate special characters when selecting edi before it
-vmap F ec
+" vmap F ec
 " this wraps print("text") within the selected text in vmode
 vmap <leader>v sprint("<c-r>"")<esc>
 " vnoremap v ,jsprint(<c-r>"<esc>>
@@ -172,7 +176,8 @@ vmap <C-f> *:%s///gc<Left><Left><Left>
 " autocmd! VimEnter *.py :Codi|:call timer_start( 700, { id -> execute( ':vs python_ref.py|:winc l' ) }, { 'repeat': 1 } )|
 autocmd! VimEnter *.cpp :Codi|:call timer_start( 700, { id -> execute( ':vs ref_cpp.cpp|:winc l' ) }, { 'repeat': 1 } )|
 " autocmd! VimEnter *.cpp :Codi
-
+" this moves the parenthesis over a word
+map <Right> /)<CR>a<backspace><esc>ea)<esc>:nohlsearch<CR><esc>h
 " let g:UltiSnipsEnableSnipMate ='<Leader>fe'
 
 set shiftwidth=4
@@ -235,6 +240,7 @@ autocmd Filetype python map <silent> <buffer> <F5> :update<CR>:FloatermNew! pyth
 autocmd Filetype cpp map <silent> <buffer> <F5> :update<CR>:FloatermNew! gcc ./%<CR>
 autocmd Filetype lua map <silent> <buffer> <F5> :update<CR>:FloatermNew! lua ./%<CR>
 
+autocmd Filetype sh map <silent> <buffer> <F5> :update<CR>:!time bash %<CR>
 tnoremap <silent> \t <C-\><C-n>:FloatermToggle<CR><C-\><C-n>
 nnoremap <silent> \t <C-\><C-n>:FloatermToggle<CR><C-\><C-n>
 " autocmd FileType python nmap <F5> :w<CR>:FloatermNew! python3 ./%<CR>
@@ -303,6 +309,31 @@ nmap <silent> <space>d\ ds\
 nmap <silent> <space>d* ds*
 nmap <silent> <space>d! ds!
 " surround (visual mode)
+
+" temporary
+" map 9<Right> viw9e<Plug>VSurround)<CR>k
+" map 8<Right> viw8e<Plug>VSurround)<CR>k
+" map 7<Right> viw7e<Plug>VSurround)<CR>k
+" map 6<Right> viw6e<Plug>VSurround)<CR>k
+" map 5<Right> viw5e<Plug>VSurround)<CR>k
+" map 4<Right> viw4e<Plug>VSurround)<CR>k
+" map 3<Right> viw3e<Plug>VSurround)<CR>k
+" map 2<Right> viw2e<Plug>VSurround)<CR>k
+" automatically goes into vmode if you press the l/r arrow keys
+" nmap <Right> viw
+" nmap <Left> viw
+" vmap <Right> e
+" vmap <Left> b
+
+" nmap l viw
+" nmap h viw
+" vmap l e
+" vmap h b
+
+
+" nmap <A-l> <Right>
+" nmap <A-h> <Left>
+" move with motion only using ctrl + arrowkeys
 vnoremap <silent> <space>( <Plug>VSurround)<CR>
 vnoremap <silent> <space>[ <Plug>VSurround[<CR>
 vnoremap <silent> <space>{ <Plug>VSurround}<CR>
@@ -466,8 +497,10 @@ set bs=2
 "THIS IS THE ORIGINAL BACK AND REPLACE
 "nnoremap <silent> B ma"_yiw?\w\+\_W\+\%#<CR>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR>`a":/\W\w<CR>Nb:nohlsearch<CR>
 nnoremap <silent> B ma"_yiw?\w\+\_W\+\%#<CR>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR>`a":/\W\w<CR>NNl:nohlsearch<CR>
+" nnoremap <silent> B ma"_yiw?\w\+\_W\+\%#<CR>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR>`a":/\W\w<CR>NNl:nohlsearch<CR>
 "this is TEMPORARY for back and replace
 
+" nnoremap <silent> B ma"_yiw?\w\+\_W\+\%#<CR>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR>`a":/^\w\+\m\\|\W\w<CR>NNl:nohlsearch<CR>
 nnoremap <silent> B ma"_yiw?\w\+\_W\+\%#<CR>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR>`a":/^\w\+\m\\|\W\w<CR>NNl:nohlsearch<CR>
 set lazyredraw
 
