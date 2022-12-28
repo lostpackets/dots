@@ -17,6 +17,14 @@ command! -bang -nargs=* Rg
     " nvim-treesitter extends the colors of syntax highlighting
     Plug 'nvim-treesitter/nvim-treesitter'
 
+    Plug '~/vim-notes/plugin/pytest.vim'
+
+    Plug 'hienvd/vim-stackoverflow'
+    " DIY vim plugin
+    " this won't tell you if the plugin is installed if it has a local directory
+    Plug '~/vim-notes'
+    " DIY vim plugin
+    " Plug '~/.config/nvim/autoload/example-plugin.vim'
     " more word motions
     " Plug 'chaoren/vim-wordmotion'
     " faster search specification
@@ -250,3 +258,5 @@ end)
 lsp.setup()
 EOF
 "reference for keybindings of lsp-zero https://github.com/VonHeikemen/lsp-zero.nvim/wiki/Under-the-hood
+
+
