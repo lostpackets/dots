@@ -1,4 +1,6 @@
+
 source $HOME/.config/nvim/vim-plug/plugins.vim
+
 " source $HOME/.config/nvim/lua/lsp.lua
 " nmap <F11> ":let b = ['foo', 'bar', 'vim'] | %s//\=(remove(b, 0))/g
 
@@ -11,17 +13,58 @@ source $HOME/.config/nvim/vim-plug/plugins.vim
 " easier
 nmap <F11> *:let b = ['foo', 'bar', 'vim'] \| %s/@/\=(remove(b, 0))/g \|<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
 let g:vim_notes_date_format = "%m-%d-%Y-%A"
- " echo "b's array replaces anything with the occurances of @"
- "
+" echo "b's array replaces anything with the occurances of @"
+"
+"false
+"
+
+" Variable code completion
+" inoremap <silent> <a-o> <C-R>=codelf#start()<CR>
+" nnoremap <silent> <a-o> :call codelf#start()<CR>
+"
+"this unbinds the S (substitute key) in vim
+" expand region plugin
+" "S" keybind breaks if you do not source it manually
+map S <Nop>
+map s <Nop>
+nmap s <plug>(expand_region_expand)
+vmap s <plug>(expand_region_expand)
+vmap z <plug>(expand_region_shrink)
+
+
+" dialnvim settings
+" 29
+nmap  <C-a>  <Plug>(dial-increment)
+nmap  <C-x>  <Plug>(dial-decrement)
+vmap  <C-a>  <Plug>(dial-increment)
+vmap  <C-x>  <Plug>(dial-decrement)
+vmap g<C-a> g<Plug>(dial-increment)
+vmap g<C-x> g<Plug>(dial-decrement)
+"
+"switch to insert mode in vmode
+" vmap A <Nop>
+
+"
+"this generates random names
+let g:gimmename_no_mappings = 1
+imap <C-\><C-\> <Plug>(gimmename-current-style)
+imap <C-\><C-s> <Plug>(gimmename-snakecase)
+imap <C-\><C-d> <Plug>(gimmename-camelcase)
+imap <C-\><C-m> <Plug>(gimmename-mixedcase)
 " map V vg_
-nmap <BS> d])
+" (not on due to athame) this remaps backspace to delete everything before ) in normalmode
+" nmap <BS> d])
 " map H F(i
 map H F(i
-map <F13> :Test<CR>
+map <S-F1> :Test<CR>
 map vv V
 " vmap <Left> e
 " vmap <Right> b
-vmap vv <Plug>(Exchange)
+vmap <tab> <Plug>(Exchange)
+nmap <tab> <Plug>(Exchange)
+" originally on, but now it's off due to athame
+" vmap <backspace> <Plug>(Exchange)
+" nmap <backspace> <Plug>(Exchange)
 map X v<esc>$xgv<esc>
  " imap <F13> :echo 'hi'
  " this only works for rxvt
@@ -162,7 +205,12 @@ nmap <c-q> ,js[[print(<c-r>"<esc>>]]
 " imap <s-9> red
 " innoremap <s-CR> o<Esc>
 nmap <C-f> *:%s///gc<Left><Left><Left>
-nnoremap D Da
+" This used to delete all from the cursor to the end of line (C already does this in n mode)
+" nnoremap D Da
+" This mapping deletes all words (or a phrase) before the nearest whitespace
+" forward
+nnoremap D df<space>i<space><left>
+vmap D f<space><left>
 :highlight Normal guibg=none guifg=gray
 vmap <C-f> *:%s///gc<Left><Left><Left>
 " nmap <silent> <S-Left> <c-w>W
@@ -407,7 +455,7 @@ let g:lightline = {
 
 " set list
 " set listchars=eol:⏎,tab:>-,trail:.,extends:>,precedes:<
-nnoremap <C-w> <Plug>(easymotion-overwin-w)
+" nnoremap <C-w> <Plug>(easymotion-overwin-w)
 
 set wrap
 " remapped zero/0 to be at the beginning of the line without whitespace
@@ -458,10 +506,19 @@ noremap <F9> {V}:FloatermNew python3<CR>
 " au VimEnter * vsplit /home/amadeus/python_ref.py
 "autocmd vsplit|autocmd VimEnter * edit /home/amadeus/atestp.py
 nnoremap <Leader>b :ls<CR>:b<Space>
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+
+" " vanilla mappings
+" " making split windows
+" " horizontal
+" nmap <C-S> <C-W>v
+" vertical
+" nmap <C-X> <C-W>s
+" " this is to navigate through the split windows
+nnoremap <C-J> <C-W><C-j>
+nnoremap <C-K> <C-W><C-k>
+" " " C-L redraws the window... so, this is unusable
+nnoremap <C-L> <C-W><C-l>
+nnoremap <C-H> <C-W><C-h>
 nnoremap + :res +5<CR>
 nnoremap _ :res -5<CR>
 let g:floaterm_keymap_new ='<Leader>fn'
@@ -545,5 +602,3 @@ nnoremap <silent> W ma"_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR>`a":/^\w\+
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
 let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4 --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
 nmap <silent> <C-P> :Files<CR>
-
-
