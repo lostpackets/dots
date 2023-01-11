@@ -16,8 +16,26 @@ command! -bang -nargs=* Rg
 " or                                , { 'branch': '0.1.x' }
     " nvim-treesitter extends the colors of syntax highlighting
     Plug 'nvim-treesitter/nvim-treesitter'
+    " make vim windows resize automatically on focus
+    " Plug 'camspiers/lens.vim'
 
     Plug '~/vim-notes/plugin/pytest.vim'
+
+    " switches conditionals, values, etc.
+    Plug 'monaqa/dial.nvim'
+
+    " This plugin allows dwm functionality w/ windows
+    Plug 'spolu/dwm.vim'
+
+    " spreads out the selection from cursor to its surroundings
+    Plug 'terryma/vim-expand-region'
+    " generates random variable names
+    Plug 'idbrii/vim-gimmename'
+    " " Separate code completion for variables
+    " Plug 'voldikss/vim-codelf'
+    " This plugin extracts expressions and turns them into variables
+    " <leader>ev
+    Plug 'fvictorio/vim-extract-variable'
 
     Plug 'hienvd/vim-stackoverflow'
     " DIY vim plugin
@@ -28,7 +46,7 @@ command! -bang -nargs=* Rg
     " more word motions
     " Plug 'chaoren/vim-wordmotion'
     " faster search specification
-    Plug 'ggandor/leap.nvim'
+    " Plug 'ggandor/leap.nvim'
     " perl-regex instead of vim-regex
     " Plug 'othree/eregex.vim'
 
@@ -86,7 +104,7 @@ command! -bang -nargs=* Rg
     " autcompletes the BUILT-IN vim autocompletion
     " Plug 'vim-scripts/AutoComplPop'
     " vim easymotion: spreads keys like alphabet soup
-    Plug 'easymotion/vim-easymotion'
+    " Plug 'easymotion/vim-easymotion'
     "0 this is for telescopes fzf
     " Plug 'nvim-lua/plenary.nvim'
     " Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
@@ -179,7 +197,7 @@ let g:codi#interpreters = {
 call plug#end()
 
 lua <<EOF
-require'leap'.add_default_mappings()
+--require'leap'.add_default_mappings()
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
   ensure_installed = { "c","python","ruby", "lua", "rust" },
@@ -256,7 +274,83 @@ lsp.on_attach(function(client, bufnr)
   -- more code  ...
 end)
 lsp.setup()
+
+
+-- dial
+local augend = require("dial.augend")
+-- require("dial.config").augends:register_group{
+--   default = {
+--     augend.integer.alias.decimal,
+--     augend.integer.alias.hex,
+--     augend.date.alias["%Y/%m/%d"],
+--   },
+--   typescript = {
+--     augend.integer.alias.decimal,
+--     augend.integer.alias.hex,
+--     augend.constant.new{ elements = {"let", "const"} },
+--   },
+--   visual = {
+--     augend.integer.alias.decimal,
+--     augend.integer.alias.hex,
+--     augend.date.alias["%Y/%m/%d"],
+--     augend.constant.alias.alpha,
+--     augend.constant.alias.Alpha,
+--   },
+-- }
+require("dial.config").augends:register_group{
+  default = {
+    -- uppercase hex number (0x1A1A, 0xEEFE, etc.)
+    augend.constant.new{
+      elements = {"and", "or"},
+      word = true, -- if false, "sand" is incremented into "sor", "doctor" into "doctand", etc.
+      cyclic = true,  -- "or" is incremented into "and".
+    },
+    augend.constant.new{
+      elements = {"&&", "||"},
+      word = false,
+      cyclic = true,
+    },
+    augend.constant.new{
+      elements = {"true", "false"},
+      word = false,
+      cyclic = true,
+    },
+    augend.constant.new{
+      elements = {"True", "False"},
+      word = false,
+      cyclic = true,
+    },
+    augend.constant.new{
+      elements = {"if", "fi"},
+      word = false,
+      cyclic = true,
+    },
+    augend.constant.new{
+      elements = {"=", "!="},
+      word = false,
+      cyclic = true,
+    },
+    augend.constant.new{
+      elements = {"-", "+"},
+      word = false,
+      cyclic = true,
+    },
+    augend.constant.new{
+      elements = {"-lt", "-gt"},
+      word = false,
+      cyclic = true,
+    },
+  },
+}
+
+-- change augends in VISUAL mode
+vim.api.nvim_set_keymap("v", "<C-a>", require("dial.map").inc_normal("visual"), {noremap = true})
+vim.api.nvim_set_keymap("v", "<C-x>", require("dial.map").dec_normal("visual"), {noremap = true})
 EOF
 "reference for keybindings of lsp-zero https://github.com/VonHeikemen/lsp-zero.nvim/wiki/Under-the-hood
 
+
+
+" enable only for specific FileType
+" autocmd FileType typescript lua vim.api.nvim_buf_set_keymap(0, "n", "<C-a>", require("dial.map").inc_normal("typescript"), {noremap = true})
 
