@@ -1,0 +1,26 @@
+# On ctrl + f do bind -x f for fzf
+# ctrl + f
+#     urxvt -e nvim
+# $HOME/.shell_scripts/open_fuzzy.sh
+
+ctrl + alt + f
+    urxvt -e home_fzf
+    # urxvt -e test_pp ~/
+ctrl + alt + g
+    urxvt -e nvim ~/
+# On mouse button 2 pause 3 seconds then press Alt_R+F2
+# Shift_Lock
+#
+Shift_R
+
+    # caps_shift_locks
+    # xdotool key "Caps_Lock"
+    xdotool key "Shift_Lock"
+    # shiftlockcapslock
+    # xdotool key Caps_Lock
+    # xdotool key Shift_Lock
+    # 
+    # xdotool key Caps_Lock + Shift_Lock
+
+# button2
+#     xte "sleep 3" "keydown Alt_R" "keydown F2" "keyup Alt_R" "keyup F2"
