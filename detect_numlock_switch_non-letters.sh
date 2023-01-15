@@ -22,6 +22,9 @@ if [ "$numlock_status" == "off" ]; then
     xmodmap -e "keysym period = period greater"
     xmodmap -e "keysym slash = slash question"
     xmodmap -e "keysym backslash = backslash bar"
+    xmodmap -e "keysym bracketleft = bracketleft braceleft"
+    xmodmap -e "keysym bracketright = bracketright braceright"
+    xmodmap -e "keysym minus = minus underscore"
 else
     echo "Numlock is pressed. Switching symbols to shifted versions."
     # Switch symbols to shifted versions
@@ -41,5 +44,8 @@ else
     xmodmap -e "keysym period = greater period"
     xmodmap -e "keysym slash = question slash"
     xmodmap -e "keysym backslash = bar backslash"
+    xmodmap -e "keysym bracketleft = braceleft bracketleft"
+    xmodmap -e "keysym bracketright = braceright bracketright"
+    xmodmap -e "keysym minus = underscore minus"
 fi
 
